@@ -1,6 +1,6 @@
 {-# OPTIONS --copatterns #-}
 
-module Tensor where
+module Logic.Tensor.Semantics where
 
 data Formula : Set where
   ⊤   : Formula
