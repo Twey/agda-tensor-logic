@@ -52,10 +52,8 @@ open import Function     using (_∘_)
 -- shut up, I don't have subscript g ☹
 _×ₗ_ : Game → Game → Game
 move (A ×ₗ B) = move A ⊎ move B
-play (A ×ₗ B) =
-  λ { (inj₁ a) → game λ a′ → play (play A a) a′ ×ₗ B
-    ; (inj₂ b) → game λ b′ → A ×ₗ play (play B b) b′
-    }
+play (A ×ₗ B) (inj₁ a) = game λ a′ → play (play A a) a′ ×ₗ B
+play (A ×ₗ B) (inj₂ b) = game λ b′ → A ×ₗ play (play B b) b′
 
 ⟦_⟧ : Formula → Game
 ⟦   ⊤   ⟧ = game ⊥-elim
@@ -75,12 +73,10 @@ Disprovable = Strategy′ ∘ ⟦_⟧
 ¬-defn ¬A = strat λ { tt → ¬A }
 
 _×ₛ_ : ∀ {A B} → Strategy A → Strategy B → Strategy (A ×ₗ B)
-react (sA ×ₛ sB) =
-  λ { (inj₁ a) →
-        strat′ (response (react sA a)) (followup (react sA a) ×ₛ sB)
-    ; (inj₂ b) →
-        strat′ (response (react sB b)) (sA ×ₛ followup (react sB b))
-    }
+react (sA ×ₛ sB) (inj₁ a)
+  = strat′ (response (react sA a)) (followup (react sA a) ×ₛ sB)
+react (sA ×ₛ sB) (inj₂ b)
+  = strat′ (response (react sB b)) (sA ×ₛ followup (react sB b))
 
 ⊗-defn : ∀ {A B} → Provable A × Provable B → Provable (A ⊗ B)
 ⊗-defn (sA , sB) = sA ×ₛ sB
