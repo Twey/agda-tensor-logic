@@ -16,12 +16,6 @@ record Game : Set₁ where
     {move} : Set
     play : move → Game
 
-import Data.Unit
-
-boring : Game
-Game.move boring = Data.Unit.⊤
-Game.play boring = λ tt → boring
-
 mutual
   record Strategy (g : Game) : Set₁ where
     coinductive
