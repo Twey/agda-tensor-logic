@@ -42,7 +42,7 @@ open import Data.Sum     using (_⊎_; inj₁; inj₂)
 open import Data.Product using (_×_; _,_)
 open import Function     using (_∘_)
 
--- l for ludum
+-- l for ludi
 -- shut up, I don't have subscript g ☹
 _×ₗ_ : Game → Game → Game
 move (A ×ₗ B) = move A ⊎ move B
