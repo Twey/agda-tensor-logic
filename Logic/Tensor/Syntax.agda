@@ -6,7 +6,9 @@ data Formula : Set where
   ¬_  : Formula → Formula
   _⊗_ : Formula → Formula → Formula
 
+⊥ : Formula
 ⊥ = ¬ ⊤
-_⇒_ : Formula → Formula → Formula
-A ⇒ B = ¬ (A ⊗ ¬ B)
+
+_⊸_ : Formula → Formula → Formula
+A ⊸ B = ¬ (A ⊗ ¬ B)
 
