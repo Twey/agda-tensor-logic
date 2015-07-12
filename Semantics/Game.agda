@@ -19,7 +19,7 @@ open import Data.Sum using (_⊎_; inj₁; inj₂)
 move ⊤ = Data.Empty.⊥
 play ⊤ ()
 
-infixr 5 ¬_
+infixr 6 ¬_
 ¬_ : Game → Game
 move (¬ g) = Data.Unit.⊤
 play (¬ g) Data.Unit.tt = g
@@ -35,4 +35,4 @@ play (A ⊗ B) (inj₂ b) = game λ b′ → A ⊗ play (play B b) b′
 
 infixr 3 _⊸_
 _⊸_ : Game → Game → Game
-A ⊸ B = ¬ (¬ A ⊗ B)
+A ⊸ B = ¬ (A ⊗ ¬ B)
